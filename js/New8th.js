@@ -155,8 +155,10 @@
 //Initialize global variables. 
 //CHANGE THESE VALUES TO CUSTOMIZE GPAC
     var credits = 30;//Main Credit
-    var SubjectList = new Array ("Chi","Eng","Math","Chem","Phy","Ele1","His","Ele2")//Subjects
-    var CreditList = new Array ("3.0@1","5.5@1","5.5@0","3.0@0","3.0@0","3.0@0","4.0@0","3.0@0")//Subjects'credit and the mark of whether it is language or nonlanguage. 1 = Language, 0 = NonLanguage
+    var SubjectList = new Array ("Chi","Eng","Math","Bio","Phy","His","Geo")//Subjects
+    var CreditList = new Array ("5.0@1","7.5@1","7.5@0","3.0@0","3.0@0","2.0@0","2.0@0")//Subjects'credit and the mark of whether it is language or nonlanguage. 1 = Language, 0 = NonLanguage
+
+    var NLAPList = new Array(0,2.6,3.0,3.3,3.6,3.9,4.2,4.5) //Credits for NonLanguage AP IN ORDER
     var NLHList = new Array(0,2.4,2.8,3.1,3.4,3.7,4.0,4.3) //Credits for NonLanguage H IN ORDER
     var NLSPlusList = new Array(0,2.25,2.65,2.95,3.25,3.55,3.85,4.15) //Credits for NonLanguage S+ IN ORDER
     var NLSList = new Array(0,2.1,2.5,2.8,3.1,3.4,3.7,4.0) //Credits for NonLanguage S IN ORDER
