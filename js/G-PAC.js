@@ -158,7 +158,7 @@
     var SubjectList = new Array ("Chi","Eng","Math","Chem","Phy","Ele1","His","Ele2")//Subjects
     var CreditList = new Array ("3.0@1","5.5@1","5.5@0","3.0@0","3.0@0","3.0@0","4.0@0","3.0@0")//Subjects'credit and the mark of whether it is language or nonlanguage. 1 = Language, 0 = NonLanguage
     var NLHList = new Array(0,2.4,2.8,3.1,3.4,3.7,4.0,4.3) //Credits for NonLanguage H IN ORDER
-    var NLSPlusList = new Array(0,2.25,2.65,2.95,3.25,3.55,3.85,4.15) //Credits for NonLanguage S+ IN ORDER
+    var NLSPLUSList = new Array(0,2.25,2.65,2.95,3.25,3.55,3.85,4.15) //Credits for NonLanguage S+ IN ORDER
     var NLSList = new Array(0,2.1,2.5,2.8,3.1,3.4,3.7,4.0) //Credits for NonLanguage S IN ORDER
     var LAPList = new Array(0,2.4,2.8,3.1,3.4,3.7,4.1,4.3) //Credits for Language AP IN ORDER
     var LHPLUSList = new Array(0,2.5,2.9,3.2,3.5,3.8,4.1,4.4) //Credits for Language H+ IN ORDER
@@ -178,6 +178,7 @@ function Run()
    var rank = "";
    for (var count=0;count<SubjectList.length;count++)
    {      
+
         total += getGpa(SubjectList[count],count);//Adds all the raw GPA
    }
    var GPAFinal=total/credits;//Divides the Raw GPA with the credit.
@@ -200,6 +201,10 @@ function getGpa(subject,count){
     var TempList = CreditList[count].split("@");//Decode CreditList
     var Credit = parseFloat(TempList[0]);//Import Credit
     var Validator = parseInt(TempList[1]);//Import Class Validator
+    if (SubScore == 0)
+    {
+        
+    }
     if (Validator == 1)//Validate the type of the subject
     {return Credit*getL(subLev,subScore);}
     else
