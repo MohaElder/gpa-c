@@ -38,6 +38,9 @@ public class Result
 
 class Unit
 {
+    string rawName, rawLevel;
+    double rawCredit, rawScore;
+    bool rawIdentifier;
 
     public Unit(string name,  double credit, bool type)
     {
@@ -47,20 +50,20 @@ class Unit
         rawScore = 0;
         convertType(rawIdentifier);
         rawLevel = "S";
-        NLIBList = [0, 2.6, 3.0, 3.3, 3.6, 3.9, 4.2, 4.5];
-        NLAPList = [0, 2.6, 3.0, 3.3, 3.6, 3.9, 4.2, 4.5]; //Credits for Language AP IN ORDER
-        NLHPLUSList = [0, 2.25, 2.65, 2.95, 3.25, 3.55, 3.85, 4.15]; //Credits for Language S+ IN ORDER
-        NLHList = [0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.0, 4.3]; //Credits for NonLanguage H IN ORDER
-        NLSPLUSList = [0, 2.25, 2.65, 2.95, 3.25, 3.55, 3.85, 4.15]; //Credits for NonLanguage S+ IN ORDER
-        NLSList = [0, 2.1, 2.5, 2.8, 3.1, 3.4, 3.7, 4.0]; //Credits for NonLanguage S IN ORDER
-        LAPList = [0, 2.6, 3.0, 3.3, 3.6, 3.9, 4.2, 4.5]; //Credits for Language AP IN ORDER
-        LHPLUSList = [0, 2.5, 2.9, 3.2, 3.5, 3.8, 4.1, 4.4]; //Credits for Language H+ IN ORDER
-        LHList = [0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.0, 4.3]; //Credits for Language H IN ORDER
-        LSPLUSList = [0, 2.2, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1]; //Credits for Language S+ IN ORDER
-        LSList = [0, 2.1, 2.5, 2.8, 3.1, 3.4, 3.7, 4.0]; //Credits for Language S IN ORDER
+        double NLIBList = { 0, 2.6, 3.0, 3.3, 3.6, 3.9, 4.2, 4.5 };
+        double NLAPList = {0, 2.6, 3.0, 3.3, 3.6, 3.9, 4.2, 4.5}; //Credits for Language AP IN ORDER
+        double NLHPLUSList = {0, 2.25, 2.65, 2.95, 3.25, 3.55, 3.85, 4.15}; //Credits for Language S+ IN ORDER
+        double NLHList = {0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.0, 4.3}; //Credits for NonLanguage H IN ORDER
+        double NLSPLUSList = {0, 2.25, 2.65, 2.95, 3.25, 3.55, 3.85, 4.15}; //Credits for NonLanguage S+ IN ORDER
+        double NLSList = {0, 2.1, 2.5, 2.8, 3.1, 3.4, 3.7, 4.0}; //Credits for NonLanguage S IN ORDER
+        double LAPList = {0, 2.6, 3.0, 3.3, 3.6, 3.9, 4.2, 4.5}; //Credits for Language AP IN ORDER
+        double LHPLUSList = {0, 2.5, 2.9, 3.2, 3.5, 3.8, 4.1, 4.4}; //Credits for Language H+ IN ORDER
+        double LHList = {0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.0, 4.3}; //Credits for Language H IN ORDER
+        double LSPLUSList = {0, 2.2, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1}; //Credits for Language S+ IN ORDER
+        double LSList = {0, 2.1, 2.5, 2.8, 3.1, 3.4, 3.7, 4.0}; //Credits for Language S IN ORDER
     }
 
-    convertType(type)
+    public void convertType(bool type)
     {
         if (rawIdentifier == 0)
         { //0 is Non-Language, 1 is Language
@@ -74,48 +77,48 @@ class Unit
         }
     }
 
-    setCredit(credit)
+    public void setCredit(double credit)
     {
         rawCredit = credit;
     }
 
-    setType(type)
+    public void setType(bool type)
     {
         rawType = type;
     }
 
-    setScore(score)
+    public void setScore(double score)
     {
         rawScore = score;
     }
 
-    setLevel(level)
+    public void setLevel(string level)
     {
         rawLevel = level;
     }
 
-    getLevel()
+    public string getLevel()
     {
         return rawLevel;
     }
 
-    getScore()
+    public double getScore()
     {
         return rawScore;
     }
 
-    getCredit()
+    public double getCredit()
     {
         return rawCredit;
     }
 
-    getType()
+    public bool getType()
     {
         return rawType;
     }
 
     //Data Importation Function
-    getGPA()
+    public double getGPA()
     {
         if (rawType == true)
         {  //false is non-language, true is language
@@ -128,66 +131,66 @@ class Unit
     }
 
     //Subject Categorization Function
-    getNL()
+    public double getNL()
     {
         //console.log(Level);
         if (rawLevel == "AP")
         {
-            return calGPA(NLAPList)
+            return calGPA(NLAPList);
       }
         if (rawLevel == "H+")
         {
-            return calGPA(NLHPLUSList)
+            return calGPA(NLHPLUSList);
   
 
     }
         if (rawLevel == "H")
         {
-            return calGPA(NLHList)
+            return calGPA(NLHList);
   
     }
         if (rawLevel == "S+")
         {
-            return calGPA(NLSPLUSList)
+            return calGPA(NLSPLUSList);
   
     }
         if (rawLevel == "S")
         {
-            return calGPA(NLSList)
+            return calGPA(NLSList);
       }
 
     }
 
-    getL()
+    public double getL()
     {
         //console.log(Level);
         if (rawLevel == "AP")
         {
-            return calGPA(LAPList)
+            return calGPA(LAPList);
         }
         if (rawLevel == "H+")
         {
-            return calGPA(LHPLUSList)
+            return calGPA(LHPLUSList);
     
     }
         if (rawLevel == "H")
         {
-            return calGPA(LHList)
+            return calGPA(LHList);
     
     }
         if (rawLevel == "S+")
         {
-            return calGPA(LSPLUSList)
+            return calGPA(LSPLUSList);
     
     }
         if (rawLevel == "S")
         {
-            return calGPA(LSList)
+            return calGPA(LSList);
         }
 
     }
 
-    calGPA(list)
+    public double calGPA(double list)
     {
         //console.log(list);
         //console.log(listname);
@@ -213,7 +216,7 @@ class Unit
         return gpa;
     }
 
-    toString()
+    public string toString()
     {
         return ("Subject Name: " + rawName + " Subject Credit: " + rawCredit + " Subject Type: " + rawTypename + " Subject Score: " + rawScore + " Subject Level: " + rawLevel);
     }
