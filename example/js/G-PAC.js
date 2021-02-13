@@ -11,8 +11,23 @@ export class GPAC {
    * @date 2021-02-13
    * @param {Subject} subjects
    */
-  constructor (subjects) {
-    this.subjects = subjects
+  constructor ({subjects, json = {}}) {
+    if(json === {}){
+      this.subjects = subjects
+    }
+    else{
+      this.readJson(json)
+    }
+  }
+
+  readJson(json){
+    this.subjects = []
+    let parsedSubjects = JSON.parse(json)
+    parsedSubjects.forEach(subject => {
+      this.subjects.push(new Subject({name:subject.name, credits:subject.credits,
+        extraCredit:subject.extraCredit,bounds:subject.bounds}))
+    });
+    console.log(this.subjects)
   }
 
   // scores = [{subject: "English", score: 92, level: H, ...}]
@@ -31,7 +46,7 @@ export class GPAC {
       this.subjects.forEach(subject => {
         scores.forEach(score => {
           if (score.subject === subject.name) {
-            total += subject.extraCredit * subject.getGpa(score)
+            total += (subject.extraCredit === 0 ? 1 : subject.extraCredit) * subject.getGpa(score)
             divider += subject.extraCredit
           }
         })
