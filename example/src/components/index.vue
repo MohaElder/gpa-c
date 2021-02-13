@@ -32,17 +32,27 @@
       </sui-form-field>
       <sui-button positive size="large" type="submit">Submit</sui-button>
     </sui-form>
+    <sui-statistic size="tiny" style="width: 100%" v-if="displayGpa != null">
+      <sui-statistic-value>{{
+        isNaN(displayGpa) ? "Unavailable" : displayGpa
+      }}</sui-statistic-value>
+      <sui-statistic-label>GPA</sui-statistic-label>
+    </sui-statistic>
   </div>
 </template>
 <script>
 import { GPAC, Level, Subject } from "../../js/G-PAC.js";
 
-var credits = [0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.1, 4.3]
-var bounds = [0, 60, 68, 73, 78, 83, 88, 93]
+var credits_s = [0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.1, 4.3];
+var credits_s_plus = [0, 2.5, 2.8, 3.2, 3.5, 3.8, 4.2, 4.4];
+var credits_h = [0, 2.6, 2.9, 3.3, 3.6, 3.9, 4.3, 4.5];
+var bounds = [0, 60, 68, 73, 78, 83, 88, 93];
+
 export default {
   name: "index",
   data() {
     return {
+      displayGpa: null,
       subjects: [
         {
           name: "Chinese",
@@ -72,15 +82,15 @@ export default {
           levels: [
             {
               text: "S",
-              value: 1,
+              value: "S",
             },
             {
               text: "S+",
-              value: 2,
+              value: "S+",
             },
             {
               text: "H",
-              value: 3,
+              value: "H",
             },
           ],
         },
@@ -92,15 +102,15 @@ export default {
           levels: [
             {
               text: "S",
-              value: 1,
+              value: "S",
             },
             {
               text: "S+",
-              value: 2,
+              value: "S+",
             },
             {
               text: "H",
-              value: 3,
+              value: "H",
             },
           ],
         },
@@ -109,16 +119,60 @@ export default {
   },
   methods: {
     onSubmit() {
-      let subjects = this.subjects;
+      this.doJsonWay();
+      //this.doClassicWay();
+      return false; //return false to prevent form auto-submission
+    },
+    doJsonWay() {
+      let subjects = JSON.parse(JSON.stringify(this.subjects));
+      let scores = [];
       for (let i = 0; i < subjects.length; i++) {
         for (let j = 0; j < subjects[i].levels.length; j++) {
-          subjects[i].levels[j] = subjects[i].levels[j].text
+          subjects[i].levels[j] = {
+            name: subjects[i].levels[j].text,
+            credits:
+              subjects[i].levels[j].text == "S"
+                ? credits_s
+                : subjects[i].levels[j].text == "S+"
+                ? credits_s_plus
+                : credits_h,
+            bounds: bounds,
+          };
         }
-        subjects[i].credits = credits
-        subjects[i].bounds = bounds
+        scores.push({
+          subject: subjects[i].name,
+          score: subjects[i].score,
+          level: subjects[i].activeLevel,
+        });
       }
-      let gpac = new GPAC({json:JSON.stringify(subjects)})
-      return false;
+      let gpac = new GPAC({ json: JSON.stringify(subjects) });
+      this.displayGpa = gpac.getGpas(scores).toFixed(3);
+    },
+    doClassicWay() {
+      let subjects = [];
+      let levels = [];
+      let scores = [];
+      levels.push(new Level({ name: "S", credits: credits_s, bounds: bounds }));
+      levels.push(
+        new Level({ name: "S+", credits: credits_s_plus, bounds: bounds })
+      );
+      levels.push(new Level({ name: "H", credits: credits_h, bounds: bounds }));
+      for (let i = 0; i < this.subjects.length; i++) {
+        subjects.push(
+          new Subject({
+            name: this.subjects[i].name,
+            levels: levels,
+            extraCredit: this.subjects[i].extraCredit,
+          })
+        );
+        scores.push({
+          subject: this.subjects[i].name,
+          score: this.subjects[i].score,
+          level: this.subjects[i].activeLevel,
+        });
+      }
+      let gpac = new GPAC({ subjects: subjects });
+      this.displayGpa = gpac.getGpas(scores).toFixed(3);
     },
   },
 };
