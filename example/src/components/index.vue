@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { GPAC, Level, Subject } from "../../js/G-PAC.js";
+import { GPAC, Level, Subject } from "gpa-c";
 
 var credits_s = [0, 2.4, 2.8, 3.1, 3.4, 3.7, 4.1, 4.3];
 var credits_s_plus = [0, 2.5, 2.8, 3.2, 3.5, 3.8, 4.2, 4.4];
