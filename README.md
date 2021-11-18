@@ -19,7 +19,7 @@ Before we get started, you should know how gpa is being calculated, below is the
 
 However, rules are different around the world, so we have a `customBoundRule` to enable custom rules, which will be introduced later.
 
-We strongly recommend you to download the example under `example` to check out how things work(feel free to just use that code too build your calculator!) We will dig into the example in the further section.
+We strongly recommend you to download the example under `example` to check out how things work(feel free to just use that code to build your calculator!) We will dig into the example in the further section.
 
 We have provided two ways and several handy helpers to easily create a gpa calculator.
 ```javascript
